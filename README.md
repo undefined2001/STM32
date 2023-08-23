@@ -1,7 +1,7 @@
 # STM32
 This is a Repository For stm32 Blue Pill Baremetal coding and the MCU is STM32F103C8T6 
 
-## About Registers of GPIO
+## About GPIO (General Purpose Input Output)
 
 A Microcontroller Have Many GPIO Pin and Few GPIO Ports. Basically GPIO Pin reffers to a single Pin on the other hand. A GPIO Port Reffers to a Group of Pin.<br>
 #### For Example:- 
