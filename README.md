@@ -17,10 +17,26 @@ Here CRL controls pin 0-7 and CRH controls pin 8-15. For this microcontroller CR
 Two parts each of them is 2 bits.
 **For Example**
 00 00 here first 2 bits for configuration and second 2 bits for mode
-|         Mode         |      Configuration        |
-|----------------------|---------------------------|
-| Value | Definition   | Value |      Definition   |
-|----------------------|-------|-------------------|
+<table>
+  <tr>
+    <th colspan="2">Mode</th>
+    <th colspan="2">Configuration</th>
+  </tr>
+  <tr>
+    <th>Value</th>
+    <th>Definition</th>
+    <th>Value</th>
+    <th>Definition</th>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+  <!-- Add more rows as needed -->
+</table>
+
 #### Subsection 1
 
 These registers control the behavior of individual pins within a GPIO port.
