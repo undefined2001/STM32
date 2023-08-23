@@ -11,7 +11,7 @@ GPIOB1, GPIOB2, GPIOB3 - Here 1, 2, and 3 are the pin numbers of different pins,
 
 ## 2. GPIO Registers
 
-#### Configuration Registers High/Low (GPIOx_CRL/CRH)
+### Configuration Registers High/Low (GPIOx_CRL/CRH)
 
 Here CRL controls pin 0-7 and CRH controls pin 8-15. For this microcontroller CRL and CRH consists of 
 Two parts each of them is 2 bits.
@@ -92,11 +92,11 @@ Two parts each of them is 2 bits.
 
 
 
-#### Input Data Register(GPIOx_IDR)
+### Input Data Register(GPIOx_IDR)
 
 These registers control the behavior of individual pins within a GPIO port.
 
-#### Output Data Register(GPIOx_ODR)
+### Output Data Register(GPIOx_ODR)
 
 You can use these registers to set pins as input or output and configure additional features like pull-up/pull-down resistors.
 
@@ -104,11 +104,11 @@ You can use these registers to set pins as input or output and configure additio
 
 These registers allow you to read input values from GPIO pins and write output values to GPIO pins.
 
-#### Bit Reset Register(GPIOx_BRR)
+### Bit Reset Register(GPIOx_BRR)
 
 The Input Data Register (IDR) holds the current state of input pins.
 
-#### Configuration Lock Register (GPIOx_LCKR)
+### Configuration Lock Register (GPIOx_LCKR)
 
 The Output Data Register (ODR) allows you to write values to output pins.
 
