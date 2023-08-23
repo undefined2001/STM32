@@ -5,37 +5,42 @@ void delay(volatile uint32_t count) {
 }
 
 int main() {
-	uint16_t LedPin = 7;
+	uint16_t LedPin = 13;
 
     GPIOB_PCLK_EN();
+    GPIOC_PCLK_EN();
 
-    //Configuring the registers for GPIO Port C
+    //Initialising GPIOB
     GPIOB->CRL = 0x00;
     GPIOB->ODR = 0x0C;
     GPIOB->IDR = 0x08;
     GPIOB->BSRR = 0x10;
 
-    //Setting the pin 7 of PORTC as Output
-    GPIOB->CRL &= ~(0xF << 28);
-    GPIOB->CRL |= (1 << 28);
+    //Initialising GPIOC
+    GPIOC->CRH = 0x04;
+    GPIOC->ODR = 0x0C;
+    GPIOC->BSRR = 0x10;
 
-    //Setting Pin 6 Of PORTC as Input
+    //Clearing and Setting the bits for BUILT_IN LED on  GPIOC
+    GPIOC->CRH &= ~(0xF << 20);
+    GPIOC->CRH |= (1 << 20);
+
+    //Clearing and Setting the bits for BUTTON on Pin6 of GPIOB
     GPIOB->CRL &= ~(0xF << 24);
     GPIOB->CRL |= (1 << 27);
-    //Setting Pin in PULLUP Mode
-    GPIOB->ODR |= (1 << 6);
+
+    //Configuring Pull-up
+    GPIOB->BSRR |= (1 << 6);
 
 
 
 
     while (1) {
-    	//COMPARING IF THEY ARE ON OR NOT BY DEFAULT THEY ARE ON SINCE WE ARE USING PULLUP
-    	if(GPIOB->IDR & (1 << 6)){
-    		//Turing on The LED
-    		 GPIOB->BSRR |= (1 << 23);
+    	//Checking the input value on GPIOB6
+    	if(!(GPIOB->IDR & (1 << 6))){
+    		GPIOC->BSRR |= (1 << 29);
     	}else{
-    		//Turning Off the LED
-    		GPIOB->BSRR |= (1 << LedPin);
+    		GPIOC->BSRR |= (1 << LedPin);
     	}
     }
 
