@@ -1,5 +1,6 @@
 /*
  * stm32f103xx.h
+ *
  *  Created on: Aug 21, 2023
  *  Author: Asraful Islam Taj
  */
@@ -60,13 +61,12 @@
 //GPIO Peripherals Structure
 
 typedef struct{
-	__vo uint32_t CRL;   // Control Register Low            OFFSET 0x00
-	__vo uint32_t CRH;   // Control Register High           OFFSET 0x04
-	__vo uint32_t IDR;   // Input Data Register             OFFSET 0x08
-	__vo uint32_t ODR;   // Output Data Register            OFFSET 0x0C
-	__vo uint32_t BSRR;  // Bit Set/Reset Register          OFFSET 0x10
-	__vo uint32_t BRR;   // Bit Reset Register              OFFSET 0x14
-	__vo uint32_t LCKR;  // Configuration Lock Register     OFFSET 0x18
+	__vo uint32_t CR[2];   //[0] for control register low [1] for control register high
+	__vo uint32_t IDR;
+	__vo uint32_t ODR;
+	__vo uint32_t BSRR;
+	__vo uint32_t BRR;
+	__vo uint32_t LCKR;
 }GPIO_RegDef_t;
 
 
@@ -96,11 +96,10 @@ typedef struct{
 #define GPIOG                        ((GPIO_RegDef_t *)GPIOG_BASEADDR)
 
 //RCC Peripherals Definition
-
 #define RCC                          ((RCC_RegDef_t *)RCC_BASEADDR)
 
-//Clock Enable Macros
 
+//Clock Enable Macros
 #define GPIOA_PCLK_EN()              (RCC->APB2ENR |= (1 << 2))
 #define GPIOB_PCLK_EN()              (RCC->APB2ENR |= (1 << 3))
 #define GPIOC_PCLK_EN()              (RCC->APB2ENR |= (1 << 4))
@@ -123,7 +122,6 @@ typedef struct{
 
 
 //Clock Disable Macros
-
 #define GPIOA_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 2))
 #define GPIOB_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 3))
 #define GPIOC_PCLK_DI()         (RCC->APB2ENR &= ~(1 << 4))
@@ -144,5 +142,6 @@ typedef struct{
 #define UART5_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 20))
 
 
+#include "stm32f103xx_gpio.h"
 
 #endif /* INC_STM32F103XX_H_ */
