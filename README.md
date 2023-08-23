@@ -112,3 +112,4 @@ This Register is For Reset a Particular GPIO Pin. We can reset(0) a particular p
 
 The Output Data Register (ODR) allows you to write values to output pins.
 
+## 3. AFIO Registers (Alternate Function Input Output)
