@@ -94,19 +94,19 @@ Two parts each of them is 2 bits.
 
 ### Input Data Register(GPIOx_IDR)
 
-These registers control the behavior of individual pins within a GPIO port.
+This Register Holds the value of The pin when its input mode. So by reading this register we can check the input value 
 
 ### Output Data Register(GPIOx_ODR)
 
-You can use these registers to set pins as input or output and configure additional features like pull-up/pull-down resistors.
+This register is for making a pin high or low also known as push or pull. If we write 1 to a particular bit position the correponding pin will be High State or if we write 0 the corresponding pin will be in Low State
 
 ### Bit Set/Reset Register(GPIOx_BSRR)
 
-These registers allow you to read input values from GPIO pins and write output values to GPIO pins.
+This Register can do both Set or Reset it consits of 32 bits. First 0-15 bits for Set and secont 16-31 for Reset by writing on 1 the Set bit we can make a pin value High(1) or by writing 1 to the reset bit we can make a pin Low(0). Additionally, if we don't need to do anything we can keep the set and reset bit 0.
 
 ### Bit Reset Register(GPIOx_BRR)
 
-The Input Data Register (IDR) holds the current state of input pins.
+This Register is For Reset a Particular GPIO Pin. We can reset(0) a particular pin by Writing 1 to the pin or If we want to do nothing we can keep it 0.
 
 ### Configuration Lock Register (GPIOx_LCKR)
 
