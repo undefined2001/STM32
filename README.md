@@ -11,10 +11,16 @@ GPIOB1, GPIOB2, GPIOB3 - Here 1, 2, and 3 are the pin numbers of different pins,
 
 ## 2. GPIO Registers
 
-### Configuration Registers (CRL/CRH)
+#### Configuration Registers High/Low (CRL/CRH)
 
-These registers are for configuring in the desired mode.
-
+Here CRL controls pin 0-7 and CRH controls pin 8-15. For this microcontroller CRL and CRH consists of 
+Two parts each of them is 2 bits.
+**For Example**
+00 00 here first 2 bits for configuration and second 2 bits for mode
+|         Mode         |      Configuration        |
+|----------------------|---------------------------|
+| Value | Definition   | Value |      Definition   |
+|----------------------|-------|-------------------|
 #### Subsection 1
 
 These registers control the behavior of individual pins within a GPIO port.
