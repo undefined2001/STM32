@@ -30,15 +30,15 @@ int main(void)
     //Cleaning the 4 bits responsible for Pin Configuration
     GPIOC->CRH &= ~(0xF << 20);
 
-    //Setting 20th bit as 1 so the bit from 20-24 wil be 00001
+    //Setting 20th bit as 1 so the bit from 20-24 will be 00001
     //First 2 bit 00 indicate output push/pull and 01 indicate output in 10MHz speed
     GPIOC->CRH |= (1 << 20);
 
     while(true){
         GPIOC->ODR |= (1 << 13);
-        delay(5000000);
-        GPIO->ODR &= ~(1 << 13);
-        delay(5000000);
+        delay(500000);
+        GPIOC->ODR &= ~(1 << 13);
+        delay(500000);
     }
 
     return 0;
