@@ -6,41 +6,36 @@ void delay(volatile uint32_t count) {
 
 int main() {
 	uint16_t LedPin = 13;
+	uint16_t ButtonPin = 6;
 
     GPIOB_PCLK_EN();
     GPIOC_PCLK_EN();
 
-    //Initialising GPIOB
-    GPIOB->CRL = 0x00;
-    GPIOB->ODR = 0x0C;
-    GPIOB->IDR = 0x08;
-    GPIOB->BSRR = 0x10;
+    GPIO_Handle_t GPIOPORTC;
+    GPIOPORTC.pGPIOx = GPIOC;
+    GPIOPORTC.GPIO_PinConfig.GPIO_PinNumber = LedPin;
+    GPIOPORTC.GPIO_PinConfig.GPIO_PinMode = GPIO_OUTPUT_HIGH_SPEED;
+    GPIOPORTC.GPIO_PinConfig.GPIO_PinConf = GPIO_OUT_PP;
 
-    //Initialising GPIOC
-    GPIOC->CRH = 0x04;
-    GPIOC->ODR = 0x0C;
-    GPIOC->BSRR = 0x10;
 
-    //Clearing and Setting the bits for BUILT_IN LED on  GPIOC
-    GPIOC->CRH &= ~(0xF << 20);
-    GPIOC->CRH |= (1 << 20);
+    GPIO_Handle_t GPIOPORTB;
+    GPIOPORTB.pGPIOx = GPIOB;
+    GPIOPORTB.GPIO_PinConfig.GPIO_PinNumber = ButtonPin;
+    GPIOPORTB.GPIO_PinConfig.GPIO_PinMode = GPIO_INPUT;
+    GPIOPORTB.GPIO_PinConfig.GPIO_PinConf = GPIO_IN_PUPD;
+    GPIOPORTB.GPIO_PinConfig.GPIO_PUPD = PULL_UP;
 
-    //Clearing and Setting the bits for BUTTON on Pin6 of GPIOB
-    GPIOB->CRL &= ~(0xF << 24);
-    GPIOB->CRL |= (1 << 27);
-
-    //Configuring Pull-up
-    GPIOB->BSRR |= (1 << 6);
+    GPIO_Init(&GPIOPORTB);
+    GPIO_Init(&GPIOPORTC);
 
 
 
 
     while (1) {
-    	//Checking the input value on GPIOB6
-    	if(!(GPIOB->IDR & (1 << 6))){
-    		GPIOC->BSRR |= (1 << 29);
+    	if(GPIO_Read_Pin(GPIOB, ButtonPin)){
+    		GPIO_Write_Pin(GPIOC, LedPin, GPIO_HIGH);
     	}else{
-    		GPIOC->BSRR |= (1 << LedPin);
+    		GPIO_Write_Pin(GPIOC, LedPin, GPIO_LOW);
     	}
     }
 
