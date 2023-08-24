@@ -31,15 +31,22 @@
 #define AFIO_OUT_PP                 2
 #define AFIO_OUT_OD                 3
 
+
+
 //Value to Write in GPIO Pin
 #define GPIO_HIGH                   1
 #define GPIO_LOW                    0
 
 
+//Pull Up and Pull down
+#define PULL_DOWN                   0
+#define PULL_UP                     1
+
 typedef struct{
 	uint8_t GPIO_PinNumber;
 	uint8_t GPIO_PinMode;
 	uint8_t GPIO_PinConf;
+	uint8_t GPIO_PUPD;
 }GPIO_PinConfig_t;
 
 
@@ -54,14 +61,17 @@ void GPIO_Init(GPIO_Handle_t *pGPIOhandle);
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
 
 //CLock Control
-void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_Clock_Control(GPIO_RegDef_t *pGPIOx, uint8_t value);
 
 //Read and Write
-uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
-uint8_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx);
-void GPIO_Write(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t Value);
-void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value);
-void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
+uint8_t GPIO_Read_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
+
+uint8_t GPIO_Read_Port(GPIO_RegDef_t *pGPIOx);
+
+
+void GPIO_Write_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t Value);
+void GPIO_Write_Port(GPIO_RegDef_t *pGPIOx, uint8_t Value);
+void GPIO_Toggle_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
 
 //Interrupt handling
 void GPIO_IRQConfig(void);

@@ -55,7 +55,9 @@ void GPIO_Clock_Control(GPIO_RegDef_t *pGPIOx, uint8_t value)
 		{
 			GPIOE_PCLK_EN();
 		}
-	}else if(value == DISABLE){
+	}
+	else if (value == DISABLE)
+	{
 		if (pGPIOx == GPIOA)
 		{
 			GPIOA_PCLK_DI();
@@ -91,7 +93,7 @@ uint8_t GPIO_Read_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber)
 	uint8_t value = (uint8_t)(pGPIOx->IDR >> pinNumber) & 0x00000001;
 	return value;
 }
-uint8_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
+uint8_t GPIO_Read_Port(GPIO_RegDef_t *pGPIOx)
 {
 	return 1;
 }
@@ -116,9 +118,9 @@ void GPIO_Write_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t Value)
 	}
 }
 
-void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value)
+void GPIO_Write_Port(GPIO_RegDef_t *pGPIOx, uint8_t Value)
 {
 }
-void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber)
+void GPIO_Toggle_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber)
 {
 }
