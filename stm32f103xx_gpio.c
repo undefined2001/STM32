@@ -7,24 +7,41 @@
 
 #include "stm32f103xx_gpio.h"
 
+
 void GPIO_Init(GPIO_Handle_t *pGPIOhandle)
 {
-	uint8_t temp = (pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber / 8);
-	uint8_t temp2 = (pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber % 8);
+    if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_OUTPUT)
+    {
+        uint8_t temp = (pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber / 8);
+        uint8_t temp2 = (pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber % 8);
 
-	pGPIOhandle->pGPIOx->CR[temp] &= ~(0xF << temp2 * 4);
-	pGPIOhandle->pGPIOx->CR[temp] |= (pGPIOhandle->GPIO_PinConfig.GPIO_PinConf) << ((temp2 * 4) + 2);
-	pGPIOhandle->pGPIOx->CR[temp] |= (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode) << (temp2 * 4);
+        pGPIOhandle->pGPIOx->CR[temp] &= ~(0xF << temp2 * 4);
+        pGPIOhandle->pGPIOx->CR[temp] |= (pGPIOhandle->GPIO_PinConfig.GPIO_PinConf) << ((temp2 * 4) + 2);
+        pGPIOhandle->pGPIOx->CR[temp] |= (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode + pGPIOhandle->GPIO_PinConfig.GPIO_Speed) << (temp2 * 4);
 
-	if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_INPUT && pGPIOhandle->GPIO_PinConfig.GPIO_PUPD == PULL_UP)
-	{
-		pGPIOhandle->pGPIOx->ODR |= (1 << pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber);
-	}
-	else if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_INPUT && pGPIOhandle->GPIO_PinConfig.GPIO_PUPD == PULL_DOWN)
-	{
-		pGPIOhandle->pGPIOx->ODR &= ~(1 << pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber);
-	}
+        if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_INPUT && pGPIOhandle->GPIO_PinConfig.GPIO_PUPD == PULL_UP)
+        {
+            pGPIOhandle->pGPIOx->ODR |= (1 << pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber);
+        }
+        else if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_INPUT && pGPIOhandle->GPIO_PinConfig.GPIO_PUPD == PULL_DOWN)
+        {
+            pGPIOhandle->pGPIOx->ODR &= ~(1 << pGPIOhandle->GPIO_PinConfig.GPIO_PinNumber);
+        }
+    }
+    else
+    {
+        if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_IT_FT)
+        {
+        }
+        else if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_IT_RT)
+        {
+        }
+        else if (pGPIOhandle->GPIO_PinConfig.GPIO_PinMode == GPIO_IT_FRT)
+        {
+        }
+    }
 }
+
 
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx)
 {
@@ -55,9 +72,7 @@ void GPIO_Clock_Control(GPIO_RegDef_t *pGPIOx, uint8_t value)
 		{
 			GPIOE_PCLK_EN();
 		}
-	}
-	else if (value == DISABLE)
-	{
+	}else if(value == DISABLE){
 		if (pGPIOx == GPIOA)
 		{
 			GPIOA_PCLK_DI();
@@ -81,6 +96,8 @@ void GPIO_Clock_Control(GPIO_RegDef_t *pGPIOx, uint8_t value)
 	}
 };
 
+
+
 /*
  * This Function is User to Read Value from a Particular Pin
  * It shifts the value of Corresponding Input Data Registers to LSB and Compare/Mask with
@@ -93,10 +110,12 @@ uint8_t GPIO_Read_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber)
 	uint8_t value = (uint8_t)(pGPIOx->IDR >> pinNumber) & 0x00000001;
 	return value;
 }
-uint8_t GPIO_Read_Port(GPIO_RegDef_t *pGPIOx)
+uint8_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx)
 {
 	return 1;
 }
+
+
 
 /*
  * This Function Basically Write to an Pin either 0 or 1
@@ -118,9 +137,9 @@ void GPIO_Write_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t Value)
 	}
 }
 
-void GPIO_Write_Port(GPIO_RegDef_t *pGPIOx, uint8_t Value)
+void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value)
 {
 }
-void GPIO_Toggle_Pin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber)
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber)
 {
 }
