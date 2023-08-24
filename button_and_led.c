@@ -8,8 +8,6 @@ int main() {
 	uint16_t LedPin = 13;
 	uint16_t ButtonPin = 6;
 
-    GPIOB_PCLK_EN();
-    GPIOC_PCLK_EN();
 
     GPIO_Handle_t GPIOPORTC;
     GPIOPORTC.pGPIOx = GPIOC;
@@ -25,6 +23,9 @@ int main() {
     GPIOPORTB.GPIO_PinConfig.GPIO_PinConf = GPIO_IN_PUPD;
     GPIOPORTB.GPIO_PinConfig.GPIO_PUPD = PULL_UP;
 
+
+    GPIO_Clock_Control(GPIOB, ENABLE);
+    GPIO_Clock_Control(GPIOC, ENABLE);
     GPIO_Init(&GPIOPORTB);
     GPIO_Init(&GPIOPORTC);
 
