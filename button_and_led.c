@@ -12,7 +12,7 @@ int main() {
     GPIO_Handle_t GPIOPORTC;
     GPIOPORTC.pGPIOx = GPIOC;
     GPIOPORTC.GPIO_PinConfig.GPIO_PinNumber = LedPin;
-    GPIOPORTC.GPIO_PinConfig.GPIO_PinMode = GPIO_OUTPUT_HIGH_SPEED;
+    GPIOPORTC.GPIO_PinConfig.GPIO_PinMode = GPIO_SPEED_HIGH;
     GPIOPORTC.GPIO_PinConfig.GPIO_PinConf = GPIO_OUT_PP;
 
 
