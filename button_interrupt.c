@@ -14,7 +14,7 @@ void delay(volatile uint32_t count)
         ;
 }
 
-uint8_t Button_Pin = 9;
+uint8_t Button_Pin = 8;
 uint8_t Led_One_Pin = 6;
 uint8_t Led_Two_Pin = 13;
 
