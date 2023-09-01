@@ -12,6 +12,27 @@
 #define __vo volatile
 
 
+//Architecture Related Things
+
+//Here goes NVIC Related Register
+
+#define NO_PR_BITS_IMPLEMENTED        4
+
+#define NVIC_PR_BASE_ADDR             (uint32_t*)0xE000E400
+
+//ISER(Interrupt Set-Enable Register)
+#define NVIC_ISER0                    (uint32_t*)0xE000E100
+#define NVIC_ISER1                    (uint32_t*)0xE000E104
+#define NVIC_ISER2                    (uint32_t*)0xE000E108
+#define NVIC_ISER3                    (uint32_t*)0xE000E10C
+
+
+//ICER(Interrupt Clear-Enable Register
+#define NVIC_ICER0                    (uint32_t*)0XE000E180
+#define NVIC_ICER1                    (uint32_t*)0XE000E184
+#define NVIC_ICER2                    (uint32_t*)0XE000E188
+#define NVIC_ICER3                    (uint32_t*)0XE000E18C
+
 
 
 //Address of Memories
@@ -37,6 +58,8 @@
 #define GPIOE_BASEADDR               (APB2PERIPH_BASEADDR + 0x1800)
 #define GPIOF_BASEADDR               (APB2PERIPH_BASEADDR + 0x1C00)
 #define GPIOG_BASEADDR               (APB2PERIPH_BASEADDR + 0x2000)
+
+#define AFIO_BASE_ADDR               APB2PERIPH_BASEADDR
 
 #define USART1_BASEADDR              (APB2PERIPH_BASEADDR + 0x3800)
 #define SPI1_BASEADDR                (APB2PERIPH_BASEADDR + 0x3000)
@@ -68,6 +91,14 @@ typedef struct{
 	__vo uint32_t BRR;
 	__vo uint32_t LCKR;
 }GPIO_RegDef_t;
+
+//This is AFIO Register Struct
+typedef struct{
+	__vo uint32_t EVCR;
+	__vo uint32_t MAPR;
+	__vo uint32_t EXTICR[4];
+	__vo uint32_t MAPR2;
+}AFIO_RegDef_t;
 
 //THis is RCC Struct
 typedef struct{
@@ -114,6 +145,7 @@ typedef struct{
 #define GPIOC_PCLK_EN()              (RCC->APB2ENR |= (1 << 4))
 #define GPIOD_PCLK_EN()              (RCC->APB2ENR |= (1 << 5))
 #define GPIOE_PCLK_EN()              (RCC->APB2ENR |= (1 << 6))
+#define AFIO_PCLK_EN()               (RCC->APB2ENR |= (1 << 0))
 
 #define SPI1_PCLK_EN()               (RCC->APB2ENR |= (1 << 12))
 #define SPI2_PCLK_EN()               (RCC->APB1ENR |= (1 << 14))
@@ -151,8 +183,26 @@ typedef struct{
 #define UART5_PCLK_DI()         (RCC->APB1ENR &= ~(1 << 20))
 
 
-//EXTI Definition
-#define EXTI                    ((EXTI_RegDef_t *)EXTI_BASEADDR)
+//EXTI(External Interrupt Controller)  Definition
+#define EXTI                    ((EXTI_RegDef_t*)EXTI_BASEADDR)
+
+//IRQ(Interrupt Request) Number
+#define IRQ_NO_EXTI0            6
+#define IRQ_NO_EXTI1            7
+#define IRQ_NO_EXTI2            8
+#define IRQ_NO_EXTI3            9
+#define IRQ_NO_EXTI4            10
+#define IRQ_NO_EXTI9_5          23
+#define IRQ_NO_EXTI15_10        40
+
+//AFIO(Alternate Function Input Output) Definition
+#define AFIO                    ((AFIO_RegDef_t*)AFIO_BASE_ADDR)
+
+#define GPIO_BASE_ADDR_TO_CODE(x) ((x == GPIOA)? 0 :\
+		                          (x == GPIOB) ? 1 :\
+				                  (x == GPIOC) ? 2 :\
+						          (x == GPIOD) ? 3 :\
+								  (x == GPIOE) ? 4 :0)
 
 
 #include "stm32f103xx_gpio.h"

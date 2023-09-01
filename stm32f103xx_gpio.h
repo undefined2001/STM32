@@ -93,7 +93,8 @@ void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value);
 void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
 
 //Interrupt handling
-void GPIO_IRQConfig(void);
-void GPIO_IRQHandling(void);
+void GPIO_IRQInterruptConfig(uint8_t IRQ_Number, uint8_t value);
+void GPIO_IRQPriorityConfig(uint8_t IRQ_Number, uint8_t IRQPriority);
+void GPIO_IRQHandling(uint8_t PinNumber);
 
 #endif /* INC_STM32F103XX_GPIO_H_ */
