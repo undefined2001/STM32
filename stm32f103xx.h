@@ -1,9 +1,9 @@
 /*
- * stm32f103xx.h
- *
  *  Created on: Aug 21, 2023
- *  Author: Asraful Islam Taj
- *  Testing GitHub
+ *  @file: stm3203xx.h
+ *  @brief: This is the MCU specific header file contain all the register info of the MCU
+ *  @mcu: STM32F103C8T6
+ *  @author: Asraful Islam Taj
  */
 
 #ifndef INC_STM32F103XX_H_
